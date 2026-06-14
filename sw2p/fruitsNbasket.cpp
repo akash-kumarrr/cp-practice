@@ -1,20 +1,18 @@
-#include <bits/stdc++.h>
+#include  <bits/stdc++.h>
 
 using namespace std;
-
-typedef vector<int> vi;
 
 #define __FIO__ ios_base::sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL);
 #define _(i,s, e) for (int i=s; i<e; i++)
 #define pb push_back
 
+typedef vector<int> vi;
+
 int32_t main() {
-    __FIO__;
     int a, b, n;
     vi v;
     int fc=1, mfc=0;
-    int fruit1, fruit2;
-    bool has_fruit2 = false;
+    int fruit1=-1, fruit2=-1;
 
     if (!(cin >> n)) return 0;
 
@@ -23,37 +21,42 @@ int32_t main() {
         v.pb(a);
     }
     int e=v.size();
-
-    _(i, 0, e) {
-        fruit1 = v[i];
-        _(j, i+1, e) {
+    int i=0, j=i;
+    while (j < e) {
+        if (fruit1 == -1) {
+            fruit1 = v[j];
+            j++;
+            fc = 1;
+        }
+        else {
             if (v[j] == fruit1) {
                 fc++;
-                mfc = max(fc, mfc);
+                j++;
             }
             else {
-                if (has_fruit2 == false) {
+                if (fruit2 == -1) {
                     fruit2 = v[j];
-                    fc++;
-                    has_fruit2=true;
-                    mfc = max(mfc, fc);
+                    j++;
+                    fc ++;
                 }
                 else {
                     if (v[j] == fruit2) {
-                        fc++;
-                        mfc = max(mfc, fc);
+                        fc ++;
+                        j++;
                     }
+
                     else {
-                        mfc = max(mfc, fc);
+                        i++;
+                        j=i;
                         fc = 1;
-                        fruit1=INT_MIN;
-                        fruit2=INT_MIN;
-                        has_fruit2=false;
-                        break;
+                        fruit1 = -1;
+                        fruit2 = -1;
+                        mfc = max(mfc, fc);
                     }
                 }
             }
         }
+        mfc = max(fc, mfc);
     }
     cout << mfc << endl;
 }
