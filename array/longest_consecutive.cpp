@@ -23,7 +23,6 @@ int main() {
     }
     cout << "processing...";
     sort(v.begin(), v.end());
-
     _(i ,0, v.size()) {
         int j = i; 
         ec = 1;    
