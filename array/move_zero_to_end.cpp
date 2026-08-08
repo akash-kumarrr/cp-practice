@@ -14,19 +14,18 @@ int main(){
         cin >> a;
         v.push_back(a);
     }
+    cout << "-------------" << endl;
 
-    for (int i=0; i<v.size(); i++){
+    for (int i=0; i<v.size(); i++) {
         int x=i;
-        if (v[i]==0){
-            while (!v[x]){
+        if (!v[x]){
+            while (v[x]==0 && x<v.size()-1){
                 x++;
             }
+            v[i] = v[x];
+            v[x] = 0;
         }
-        int temp = v[x];
-        v[x] = v[i];
-        v[i] = temp;
-    }
-
-    for (int i:v) cout << i << " ";
+    } 
+    for (const auto& i : v) cout << i << " ";
     cout << endl;
 }
