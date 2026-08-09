@@ -2,40 +2,32 @@
 
 using namespace std;
 
+typedef vector<int> vi;
+typedef unordered_map<int, int> mii;
+
+#define _(i, e) for (int i=0; i<e; i++)
 #define pb push_back
-#define _(i, e) for (int i=0;i < e; i++)
 
-typedef vector<int> vi; 
-typedef map<int, int> mii; 
-
-int main(){
+int main() {
+    int a, b, c, d, x;
+    mii m;
     vi v;
-    int a, x, y;
 
-    if (!(cin >> x) || x <= 0) return 0;
-
-    int c = x;
-    while(c--){
+    if(!(cin >> x) ||!x) return 0;
+    while (x--) {
         cin >> a;
         v.pb(a);
     }
 
-    unordered_map<int, int> m;
-    
-    cout << "enter target : "; 
-    cin >> y;
+    cout << "enter the target : ";
+    cin >> d;
 
-    for (const auto& i : v){
-        int complement = y - i;
-
-        if (m.contains(complement)){
-            cout << "Pairs found: " << i << " and " << complement << endl;
+    for (int i=0; i<v.size(); i++){
+        if (m[d-v[i]]) {
+            printf("%d, %d\n", m[d-v[i]], i);
             return 0;
         }
-
-        m[i] = 1; 
+        m[v[i]] = i;
     }
-
-    cout << "No pair found." << endl;
-    return 0;
+    cout << "no  found !";
 }
