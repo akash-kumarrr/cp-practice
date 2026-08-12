@@ -3,7 +3,6 @@
 using namespace std;
 
 #define pb push_back
-// Fixed the macro to properly use start (s) and end (e) variables
 #define _(i, s, e) for (int i = s; i < e; i++)
 
 typedef vector<vector<int>> vvi;
