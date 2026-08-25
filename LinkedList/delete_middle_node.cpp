@@ -17,6 +17,7 @@ struct Node {
 };
 
 Node* array_to_ll(int* arr, int size){
+    if (size < 2) return new Node(*arr);
     Node* head = new Node(*arr);
     Node* current = head;
     lse(i, 1, size){
