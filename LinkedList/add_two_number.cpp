@@ -87,6 +87,7 @@ int main() {
             head2 = newnode;
             current2 = head2;
         }
+        
         else {
             current2->next = newnode;
             current2 = current2->next;
