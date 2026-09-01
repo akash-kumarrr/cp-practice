@@ -22,80 +22,78 @@ void transverse(Node* head) {
     }
 }
 
-Node* add_two_number(Node* head1, Node* head2) { 
+Node* add_two_number(Node* head1, Node* head2) {
     Node* current1 = head1;
     Node* current2 = head2;
-    int carry = 0;
-    while(current1 || current2) {
-        if (!current1) {
-            current1->next = new Node(0);
-            current1 = current1->next;
-        }
-
-        if (current2) {
-            if (!current2) {
-                current2->next = new Node(0);
-                current2 = current2->next;
-            }
-        }
-    }
 
     Node* output_head = nullptr;
-    Node* output_current = output_head;
+    Node* output_current = nullptr;
 
-    current1 = head1, current2=head2;
-    while(current1 && current2) {
-        int node_data = current1->data + current1->data + carry;
-        int ones_place  = node_data % 10;
-        carry = node_data/10;
-        if (current1 == head1 && current2 == head2) {
-            output_head = new Node(ones_place);
+    int carry = 0;
+
+    while (current1 || current2 || carry) {
+        int digit1 = current1 ? current1->data : 0;
+        int digit2 = current2 ? current2->data : 0;
+
+        int sum = digit1 + digit2 + carry;
+
+        int ones_place = sum % 10;
+        carry = sum / 10;
+
+        Node* new_node = new Node(ones_place);
+
+        if (!output_head) {
+            output_head = new_node;
             output_current = output_head;
+        } else {
+            output_current->next = new_node;
+            output_current = output_current->next;
         }
-        else {
-            output_current->next = new Node(ones_place);
-        }
-        output_current = output_current->next;
+
+        if (current1) current1 = current1->next;
+
+        if (current2) current2 = current2->next;
     }
+
     return output_head;
 }
 
 int main() {
     int a, n1, n2;
+    cout << "enter size of first linked list : ";
+    cin >> n1;
+    Node* head1 = nullptr, *head2 = nullptr, *current1 = nullptr, *current2 = nullptr;
 
-    Node* head1 = nullptr, *head2 = nullptr;
-    Node* current = head1;
-
-    if(!(cin >> n1)) cin >> n1;
-    cout << "first linked list: ";
-    lp(i,0, n1) {
-        cin >> a;
+    lp(i, 0, n1) {
+        if (!(cin >> a)) return 0;
+        Node* newnode = new Node(a);
         if (!i) {
-            head1 = new Node(a);
-            current = head1;
+            head1 = newnode;
+            current1 = head1;
         }
         else {
-            Node *new_node = new Node(a);
-            current->next = new_node;
+            current1->next = newnode;
+            current1 = current1->next;
         }
-        current = current->next;
     }
 
-    cout << "second linked list: ";
-    if(!(cin >> n2)) return 0;
-    lp(i,0, n2) {
-        cin >> a;
+    cout << "enter size of second linked list : ";
+    cin >> n2;
+
+    lp(i, 0, n2) {
+        if(!(cin >> a)) return 0;
+        Node* newnode = new Node(a);
         if (!i) {
-            head2 = new Node(a);
-            current = head2;
+            head2 = newnode;
+            current2 = head2;
         }
         else {
-            Node *new_node = new Node(a);
-            current->next = new_node;
+            current2->next = newnode;
+            current2 = current2->next;
         }
-        current = current->next;
     }
 
-    transverse(add_two_number(head1, head2));
+    Node* output_head = add_two_number(head1, head2);
+    transverse(output_head);
     return 0;
 }
