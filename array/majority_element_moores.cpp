@@ -2,24 +2,30 @@
 
 using namespace std;
 
-typedef vector<int> vi;
+int max_occurance(int* arr, int n){
+    map<int, int> hash_table;
+    for(int i=0; i<n; i++){
+        hash_table[arr[i]] ++ ;
+    }
+    int temp = INT_MIN;
+    int output_key;
+    for(const auto& [key, value] : hash_table) {
+        if (value > temp) {
+            temp = value;
+            output_key = key;
+        }
+    }
+    return output_key;
+}
 
-#define lp(i, e) for (int i=0; i<e; i++)
-#define pb push_back
-
-int main(){
-    int a, b, x, y;
-    vi v;
-    if (!(cin >> x) || !x) return 0;
-
-    while(x--) {
-        cin >> a;
-        v.pb(a);
+int main() {
+    int n;
+    if(!(cin >> n)) return 0;
+    int arr[n];
+    
+    for(int i=0; i<n; i++) {
+        cin >> arr[i];
     }
 
-    int max_count=0, max_val=0;
-
-    lp(i, v.size()){
-        if(v[i] == )
-    }
+    cout << max_occurance(arr, n);
 }
