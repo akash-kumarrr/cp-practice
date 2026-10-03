@@ -1,33 +1,48 @@
 #include <bits/stdc++.h>
 
+#define le(i, e) for (int i=0; i<e; i++)
+#define pb push_back
+
+
+
 using namespace std;
 
-#define lse(i, s, e) for (int i=s; i<e; i++)
+typedef vector<int> vi;
 
 int main(){
-	int a, n;
-	if(!(cin >> n)) return 0;
-	int arr[n];
-	lse(i, 0, n) cin >> *(arr+i);
+	vi v;
+	int a, b, n;
+	if(!(cin >> n) || n < 1) return 0;
+	int j=n-1;
+	while(n--) {
+		if (!(cin >> a)) return 0;
+		v.pb(a);
+	}
+	
+	int i=0;
+	bool search = false;
 
-	int low=0, high=n-1;
-	int mid ;
-	if(!(cin >> a)) return 0;
-	while(low <= high){
-		mid = (int) (low+high)/2;
-		if (*(arr+mid) == a) {
-			cout << "found the key at " << mid << endl;
-			return 0;
+	cout << "enter the target : ";
+	cin >> b;
+
+	while(i<j) {
+		int mid = (int) (i+j)/2;
+		if (v[mid] == b) {
+			search = true;
+			break;
 		}
 
-		else  if (*(arr+mid) > a){
-			high = mid-1;
-		}
 		else {
-			low = mid+1;
+			if (v[mid] < b){
+				i=mid+1;
+			}
+
+			else {
+				j=mid-1;
+			}
 		}
 	}
 
-	cout << "not found in the array" << endl ;
-	return 0;
+	search ? cout << "found" : cout << "not found" ;
+	cout << endl;
 }
